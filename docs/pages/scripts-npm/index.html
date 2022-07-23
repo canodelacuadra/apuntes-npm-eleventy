@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripts de npm</title>
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link rel="stylesheet" href="/eleventy/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+       
+        <header>
+          
+           <a href="/eleventy/"> <img width='150' src="/eleventy/img/eleventy.jpg"></a>
+            <h1> Página de documentación </h1>
+        </header>
+         <div class='sidebar'>
+ <ul><li><a href="/eleventy/pages/npm/">npm</a><ul><li><a href="/eleventy/pages/instalar-npm/">instalar-npm</a></li>
+<li><a href="/eleventy/pages/crear-proyecto-npm/">crear-proyecto-npm</a></li>
+<li><a href="/eleventy/pages/instalar-paquetes/">instalar-desinstalar-npm</a></li>
+<li><a href="/eleventy/pages/package-json/">package-json</a></li>
+<li><a href="/eleventy/pages/control-dependencias/">control-dependencias</a></li>
+<li><a href="/eleventy/pages/scripts-npm/">scripts-npm</a></li>
+<li><a href="/eleventy/pages/node-modules/">node-modules</a></li></ul></li></ul>
+         </div>
+            <div class='content'>
+        <h1>Scripts de npm</h1>
+        <article>
+<p>A medida que trabajamos con nuestro proyecto, es muy habitual crear comandos para automatizar tareas. NPM proporciona un sistema denominado scripts de NPM, que es algo así como una colección de tareas de línea de comandos. Los que provienen de desarrollos más tradicionales como C o C++, puede que vean un símil con los scripts de tipo Makefile.</p>
+<p>La idea es incorporar en el fichero package.json, una colección de scripts que pueden ser abreviados con un nombre de tarea y ejecutados desde una la carpeta raíz del proyecto escribiendo npm run <tarea>.</p>
+<p>Estructura de los scripts de NPM
+Si echamos un vistazo al package.json, en su sección scripts, veremos que npm crea un apartado de scripts donde solo tenemos un script llamado test. Este script, por defecto no realiza ninguna tarea, simplemente es una llamada a echo mostrando que no existen tests:</p>
+<p>$ cat package.json | jq .scripts
+{
+&quot;test&quot;: &quot;echo &quot;Error: no test specified&quot; &amp;&amp; exit 1&quot;
+}
+Este script se puede modificar (o borrar) con seguridad, ya que no hace nada, pero lo interesante es crear nuevos scripts con tareas que relizamos frecuentemente. Veamos los nombres de tareas más comunes que se suelen utilizar:</p>
+<p>Tarea	Descripción	Comando
+start	Se suele usar para tareas de inicio del proyecto. Se puede arrancar con npm start.	npm run start
+dev	Alternativa al anterior, se suele usar para levantar servidores de desarrollo locales.	npm run dev
+serve	Idem al anterior.	npm run serve
+build	Tarea que construye los ficheros finales para subir a la web de producción.	npm run build
+test	Suele iniciar una batería de tests. Se puede arrancar con npm test o npm t.	npm run test
+deploy	Suele desplegar en la web de producción la webapp construída con build.	npm run deploy
+Obviamente, el desarrollador puede usar el nombre de tarea que más le guste (e incluso inventar otros), pero para tareas comunes como las mencionadas es una buena práctica utilizar alguna de las anteriores, ya que cualquier desarrollador ajeno al código sabrá lo que hace con solo leer su nombre.</p>
+<p>Así pues, a modo de ejemplo, así quedarían los scripts de un package.json de un proyecto utilizando el automatizador parcel para desplegar en GitHub Pages:</p>
+<p>&quot;scripts&quot;: {
+&quot;start&quot;: &quot;parcel src/index.html&quot;,
+&quot;build&quot;: &quot;parcel build src/index.html -d build --public-url /frontend-project/&quot;,
+&quot;deploy&quot;: &quot;gh-pages -d build&quot;
+}
+También es posible incluir los comandos de build y de deploy en una misma tarea, uniéndolos con &amp;&amp;, lo que en terminal significa: «si el comando anterior termina correctamente, ejecuta el siguiente», aunque esto puede complicar la legibilidad de los scripts.</p>
+<p>Ejecutar scripts
+Como ya hemos mencionado, basta con ejecutar npm run <tarea> para ejecutar un script concreto de nuestro package.json. Si no recordamos los nombres de los scripts o estamos trabajando en un proyecto ajeno del que aún no conocemos los scripts, podemos ejecutar el comando npm run (sin nombre de tarea) y nos mostrará las tareas disponibles:</p>
+<h1>Muestra los scripts incluidos en el package.json</h1>
+<p>$ npm run</p>
+<h1>Muestra los scripts literalmente del package.json</h1>
+<p>$ cat package.json | jq .scripts
+También es posible utilizar el comando ntl (npm task list) para utilizar un menú de texto y seleccionar la tarea de una forma más interactiva. Para ello, sólo tenemos que escribir npx ntl:</p>
+<p>ntl: NPM Task List</p>
+<p>Observa que con esta herramienta, podemos movernos con los cursores a través de los scripts que nos aparecen en el menú, seleccionando el que queramos ejecutar pulsando ENTER.</p>
+<p>Preparación y finalización
+A medida que vamos creando scripts, es posible que queramos realizar tareas concretas antes o después de ejecutar un script determinado. Esto es posible simplemente creando una tarea con el prefijo pre o el prefijo post respectivamente.</p>
+<p>Veamoslo con el ejemplo anterior:</p>
+<p>&quot;scripts&quot;: {
+&quot;start&quot;: &quot;parcel src/index.html&quot;,
+&quot;predeploy&quot;: &quot;parcel build src/index.html -d build --public-url /frontend-project/&quot;,
+&quot;deploy&quot;: &quot;gh-pages -d build&quot;
+}
+El script deploy sube a GitHub Pages el contenido de la carpeta build. Como queremos que esté actualizada, creamos un script predeploy (que se ejecutará antes) y que ejecutará parcel para generar el contenido de esa carpeta build antes de subirlo, y de este modo esté todo actualizado.</p>
+<p>De la misma forma se podría hacer con el prefijo post para tareas posteriores de finalización.</p>
+<p>Organización y scripts en paralelo
+Conforme vamos creando scripts en el package.json, nuestra sección de scripts se puede ir complicando y haciendo más grande, por lo que conviene mantenerla organizada. Además, también puede entrar en juego la necesidad de crear scripts que ejecuten múltiples tareas de forma simultánea, o crear comandos que funcionen en sistemas como GNU/Linux y Mac, pero también en Windows. Para todo ello, existe un paquete llamado npm-run-all que nos permite realizar esto, entre otras cosas.</p>
+<p>Uno de los principales objetivos de paquetes como npm-run-all o cross-env era simplificar la gestión de comandos entre sistemas operativos, evitando las diferencias que existen entre comandos UNIX y Windows. Actualmente, recomiendo utilizar Node/NPM a través de Windows Subsystem for Linux (WSL), lo que evita toda esta problemática.</p>
+<p>Lo primero, es instalar el paquete npm-run-all en nuestro proyecto. Lo instalaremos como dependencia de desarrollo, puesto que es para gestionar proyectos NPM y no tiene relación con la web definitiva en producción:</p>
+<p>$ npm install --save-dev npm-run-all
+Una vez instalado, si necesitamos que se ejecuten múltiples tareas que queremos realizar de forma independiente podemos agruparlas con un namespace utilizando los dos puntos : y luego ejecutar el grupo entero con un npm-run-all <namespace>:*:</p>
+<p>&quot;scripts&quot;: {
+&quot;build&quot;: &quot;npm-run-all build:*&quot;,
+&quot;build:html&quot;: &quot;pug src/index.pug ...&quot;,
+&quot;build:css&quot;: &quot;postcss src/index.css ...&quot;,
+&quot;build:js&quot;: &quot;rollup src/index.js ...&quot;
+}
+Por defecto, estas tareas se ejecutan secuencialmente. Es decir, hasta que la primera no termine, no se ejecutará la siguiente. Esto puede ser alterado utilizando el flag -p (parallel) a npm-run-all:</p>
+<p>&quot;scripts&quot;: {
+&quot;dev&quot;: &quot;npm-run-all -p dev:*&quot;,
+&quot;dev:html&quot;: &quot;pug --watch src/index.pug ...&quot;,
+&quot;dev:css&quot;: &quot;postcss --watch src/index.css ...&quot;,
+&quot;dev:js&quot;: &quot;rollup --watch src/index.js ...&quot;
+}
+Automatizadores (tooling)
+Recuerda que los scripts de NPM no son más que un sistema para simplificar sencillas órdenes de línea de comandos. En el caso de que nuestros scripts se compliquen demasiado (o resulten demasiado «verbose») lo ideal sería buscar un automatizador de tareas o bundler que se adapte a nuestro proyecto y utilizarlo junto a los scripts de NPM.</p>
+<p>En la siguiente tabla puedes observar varios de los más populares actualmente:</p>
+<p>Herramienta	Descripción
+Webpack	El automatizador por excelencia en el mundo Javascript. Complejo y avanzado.
+Parcel	Automatizador moderno, orientado a simplicidad y comodidad. Aún en fase experimental.
+Rollup	El automatizador por excelencia de los estándares. Soporta ESM y es muy eficiente.
+Gulp	Automatizador de tareas orientado a código. Funciona de forma similar a los pipes de terminal.
+Grunt	Automatizador de tareas orientado a ficheros. Algo obsoleto a favor de Gulp.
+Browserify	Automatizador para crear bundlers para el navegador.
+Snowpack	Automatizador orientado a simplificar las complejos worlflows de las build tools.
+Just	Automatizador de tareas de Microsoft. Muy parecido a Gulp.
+FuseBox	Automatizador para crear bundlers en Javascript.
+En la excelente página Tooling.Report tienes más información sobre las diferencias de herramientas de este tipo, más concretamente, entre browserify, parcel, rollup y webpack.</p>
+
+
+<p> publicado en Sat Jul 23 2022</p>
+<a class='btn btn-dark' href= '/'>Volver</a>
+ 
+        </article>
+        </div>
+        <footer>
+ <p> &copy;2022 José Antonio Cano </p>
+        </footer>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qué es npm</title>
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link rel="stylesheet" href="/eleventy/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+       
+        <header>
+            <img width='150' src="/eleventy/img/eleventy.jpg">
+           
+        </header>
+         <div class='sidebar'>
+ <ul><li><a href="/eleventy/pages/npm/">npm</a><ul><li><a href="/eleventy/pages/que-es-npm/">que-es-npm</a></li>
+<li><a href="/eleventy/pages/crear-proyecto-npm/">que-es-npm</a></li></ul></li></ul>
+         </div>
+            <div class='content'>
+        <h1>Qué es npm</h1>
+        <article>
+<p><em><strong>NPM</strong></em> son las siglas de <em><strong>Node Package Manager</strong></em>, es decir, gestor de paquetes de NodeJS, un entorno de ejecución multiplataforma para ejecutar Javascript no sólo en un navegador web (como se concibió originalmente) sino fuera de él, y poder utilizarlo en sistemas de escritorio o servidores web.</p>
+<p>Este gestor de paquetes (muy similar al concepto de apt-get en GNU/Linux), nos permitirá instalar de forma muy sencilla y automática paquetes Javascript (tanto de Node como Javascript para el navegador) y utilizarlo para nuestros fines.</p>
+<h2>Instalación de npm (windows) instalando node</h2>
+<p>Para comenzar, necesitaremos instalar NodeJS en su versión LTS (recomendada) . Al instalar Node, se instalará automáticamente su gestor de paquetes .
+<img src="../img/node.jpg" alt="Descargar Node para windows"></p>
+<p>Luego podemos comprobar si tenemos NodeJS/NPM instalado y que versión tenemos:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Muestra la versión de Node</span><br>$ <span class="token function">node</span> --version<br><br><span class="token comment"># Muestra la versión de NPM</span><br>$ <span class="token function">npm</span> --version</code></pre>
+<p>En el caso de que no tengamos node instalado en nuestro sistema, se nos mostrará un mensaje de error como node: command not found o similar, en cuyo caso deberemos proceder a instalarlo (necesitaremos tener privilegios de root o permisos de sudo).</p>
+<p>En el caso de tener una versión muy antigua, también podemos realizar los pasos que veremos a continuación y aprovechar para actualizarlo.</p>
+<h2>¿Para que usaremos NPM?</h2>
+<p>Ahora que tenemos node y su gestor de paquetes npm disponible en nuestro sistema, podremos instalar paquetes de NPM en nuestros proyectos y/o en nuestro sistema.</p>
+<p>Hay 2 modalidades principales para utilizar NPM:</p>
+<ul>
+<li>
+<p>A nivel de proyecto: Probablemente la modalidad más utilizada es la de usar NPM como un gestor de dependencias de un proyecto, esto es, un sistema con el que controlamos que paquetes o librerías Javascript están instalados (y que versión), de modo que quedan asociados al proyecto en sí. Esto facilita que si un usuario diferente se descarga el proyecto, pueda gestionarlo fácil y rápidamente (instalar paquetes, actualizarlos, etc...)</p>
+</li>
+<li>
+<p>A nivel global: Existen algunas situaciones específicas, en las que los paquetes son realmente utilidades que no se utilizan en proyectos, muy común en aplicaciones de línea de comandos (CLI) que usamos desde terminal. En esta modalidad, los paquetes se instalan a nivel del sistema (no en la carpeta del proyecto), por lo que están disponibles siempre que el usuario quiera utilizarlos, sin necesidad de tenerlo en cada proyecto.</p>
+</li>
+</ul>
+
+
+<p> publicado en Wed Jul 20 2022</p>
+<a class='btn btn-dark' href= '/'>Volver</a>
+ 
+        </article>
+        </div>
+        <footer>
+ <p> &copy;2022 José Antonio Cano </p>
+        </footer>
+    </div>
+    
+</body>
+</html>

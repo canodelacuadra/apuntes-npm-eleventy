@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalar y desinstalar paquetes con npm</title>
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link rel="stylesheet" href="/eleventy/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+       
+        <header>
+          
+           <a href="/eleventy/"> <img width='150' src="/eleventy/img/eleventy.jpg"></a>
+            <h1> Página de documentación </h1>
+        </header>
+         <div class='sidebar'>
+ <ul><li><a href="/eleventy/pages/npm/">npm</a><ul><li><a href="/eleventy/pages/instalar-npm/">instalar-npm</a></li>
+<li><a href="/eleventy/pages/crear-proyecto-npm/">crear-proyecto-npm</a></li>
+<li><a href="/eleventy/pages/instalar-paquetes/">instalar-desinstalar-npm</a></li>
+<li><a href="/eleventy/pages/package-json/">package-json</a></li>
+<li><a href="/eleventy/pages/control-dependencias/">control-dependencias</a></li>
+<li><a href="/eleventy/pages/scripts-npm/">scripts-npm</a></li>
+<li><a href="/eleventy/pages/node-modules/">node-modules</a></li></ul></li></ul>
+         </div>
+            <div class='content'>
+        <h1>Instalar y desinstalar paquetes con npm</h1>
+        <article>
+<p>La finalidad de npm es instalar desinstalar y mantener) los paquetes (dependencias) de un proyecto de forma cómoda, rápida y amigable para el desarrollador, permitiendo ahorrar tiempo y esfuerzo.</p>
+<p>Para ello, utilizaremos principalmente el comando install y uninstall de npm, además de un pequeño ayudante denominado npx, que explicaremos a continuación:</p>
+<ul>
+<li>npm install <code>&lt;paquete&gt;</code>	Instala el paquete indicado en node_modules/, asociándolo al proyecto.</li>
+<li>npm uninstall <code>&lt;paquete&gt;</code>	Desinstala el paquete indicado, eliminándolo de node_modules/.</li>
+<li>npx <code>&lt;comando&gt;</code>	Ejecuta paquetes CLI instalados a nivel de proyecto (o no instalados).
+Es posible abreviar o utilizar alias en ciertos comandos. Por ejemplo npm add o npm i son equivalentes a npm install, mientras que npm unlink, npm remove, npm rm o npm r son equivalentes a npm uninstall.</li>
+</ul>
+<p>Una vez hemos creado e inicializado nuestro proyecto con NPM, debemos aprender a instalar y desinstalar dependencias de nuestro proyecto de forma correcta, que es lo que veremos a continuación.</p>
+<h2>Buscar paquetes de NPM</h2>
+<p>Pero antes de instalar un paquete, primero debemos encontrarlos. Los paquetes de NPM podemos buscarlos a través del buscador de NPM, disponible en la web NPMjs.com. No obstante, también podemos utilizar el buscador de linea de comandos de npm:</p>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">npm</span> search howler</code></pre>
+<p>Si finalmente encontramos un paquete en el que estamos interesados y queremos ver más información sobre él, podemos utilizar el comando npm show, que nos mostrará más información del paquete o librería:</p>
+<pre class="language-bash"><code class="language-bash"><br>howler@2.2.0 <span class="token operator">|</span> MIT <span class="token operator">|</span> deps: none <span class="token operator">|</span> versions: <span class="token number">47</span><br>Javascript audio library <span class="token keyword">for</span> the modern web.<br>https://howlerjs.com<br><br>keywords: howler, howler.js, audio, sound, web audio, webaudio, browser, html5, <span class="token punctuation">..</span>.<br>$ <span class="token function">npm</span> show howler</code></pre>
+<p>Una vez encontrado el paquete que buscamos, toca instalarlo.</p>
+<h2>Instalar paquetes</h2>
+<p>Para instalar un paquete en nuestro proyecto, simplemente debemos utilizar el comando npm install, situados en la carpeta de nuestro proyecto. Esto instalará dicho paquete y todas sus dependencias en la carpeta node_modules/, a la vez que actualiza el fichero package.json añadiendo el paquete y su versión como una dependencia del proyecto.</p>
+<p>Existen varias formas de instalar un paquete:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -D	--save-dev	<span class="token comment"># Instala el paquete en el proyecto, como dependencia de desarrollo.</span><br><span class="token function">npm</span> <span class="token function">install</span>	--save-prod	<span class="token comment"># Instala el paquete en el proyecto, como dependencia de producción.</span><br><span class="token function">npm</span> <span class="token function">install</span> -g	--global <span class="token comment">#	Instala el paquete en el sistema, sin asociarlo al proyecto.</span></code></pre>
+<p>Las dependencias de desarrollo son aquellos paquetes que necesitamos en un proyecto mientras estamos desarrollándolo, pero una vez tenemos el código generado del proyecto, no vuelven a hacer falta. Los paquetes instalados con el flag --save-dev o -D se instalan en esta modalidad, guardándolos en la sección devDependences del fichero package.json.</p>
+<p>Por otro lado, las dependencias de producción son aquellos paquetes que necesitamos tener en la web final generada, como librerías Javascript necesarias para su funcionamiento o paquetes similares. Los paquetes instalados con el flag --save-prod, -P o directamente sin ningún flag se instalan en esta modalidad, guardándolos en la sección dependences del fichero package.json.</p>
+<p>Es importante diferenciar ambas modalidades, aunque al principio es habitual no saber exactamente cuando se trata de un paquete de desarrollo y cuando un paquete de producción.</p>
+<p>Veamos un ejemplo de instalación con ambos tipos de paquetes:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Instala en modalidad de desarrollo el paquete "gh-pages"</span><br>$ <span class="token function">npm</span> <span class="token function">install</span> --save-dev gh-pages<br><br>+ gh-pages@3.1.0<br>added <span class="token number">50</span> packages from <span class="token number">12</span> contributors and audited <span class="token number">92</span> packages <span class="token keyword">in</span> <span class="token number">1</span>.998s<br><span class="token comment"># Instala en modalidad de producción la librería "Howler"</span><br>$ <span class="token function">npm</span> <span class="token function">install</span> howler<br><br>+ howler@2.2.0<br>added <span class="token number">1</span> package from <span class="token number">1</span> contributor and audited <span class="token number">93</span> packages <span class="token keyword">in</span> <span class="token number">1</span>.615s</code></pre>
+<p>Observa que en ambos casos, se nos indica la versión del paquete instalada tras el carácter @.</p>
+<p>En el primer caso estamos instalando el paquete gh-pages, una librería y comando CLI para desplegar fácilmente un proyecto en GitHub Pages. Como se trata de un paquete que no es necesario incluir en la web final (se utiliza en desarrollo para desplegar), pues lo instalamos con los flags --save-dev o -D.</p>
+<p>En el segundo caso, estamos instalando el paquete Howler, una librería Javascript que permite manipular y gestionar archivos multimedia de audio desde el navegador. En este caso se trata de una librería JS que si estará incluida en la versión definitiva de la página, por lo que la instalaremos con el flag --save-prod, -P o sin indicar ninguno, ya que es la opción por defecto.</p>
+<p>En la última modalidad los paquetes instalados de forma global no se asocian al proyecto, sino al sistema. Se explican en detalle en el capítulo Instalaciones globales con NPM.</p>
+<h2>El comando npx</h2>
+<p>Aunque hasta ahora hemos hablado de instalar paquetes de línea de comandos de forma global, también es posible instalarlos en el proyecto, y aquí es donde cobra vital importancia el comando npx.</p>
+<p>Un problema que puede surgir es que si instalamos un paquete de linea de comandos a nivel de proyecto (y ya tenemos instalada otra versión más antigua en el sistema de forma global) tendrá preferencia esta última.</p>
+<p>Es más, incluso si instalamos el paquete a nivel de proyecto solamente, es posible que al ejecutarlo el sistema no lo encuentre, ya que no está en el PATH del sistema, sino que está dentro de la carpeta node_modules/.bin.</p>
+<p>Para solucionar esto, podemos ejecutar comandos CLI instalados de forma local de la siguiente forma:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Instalamos el paquete parrotsay en el proyecto actual</span><br>$ <span class="token function">npm</span> <span class="token function">install</span> -D parrotsay<br><br><span class="token comment"># Ejecutamos el comando "parrotsay"</span><br>$ npx parrotsay</code></pre>
+<p>Esta última linea es equivalente a escribir ./node_modules/.bin/parrotsay, pero obviamente, mucho más cómodo.</p>
+<p>El comando npx hace lo siguiente:</p>
+<ol>
+<li>Busca si el paquete está instalado en node_modules/.bin. Si lo está, lo ejecuta.</li>
+<li>Si no está, lo buscará en el sistema (instalado de forma global). Si está, lo ejecuta.</li>
+<li>Si no lo encuentra, lo instalará temporalmente y lo ejecuta.
+Esto hace que sea muy cómodo utilizar npx para ejecutar comandos CLI rápidamente.</li>
+</ol>
+<h2>Pasar desarrollo a producción</h2>
+<p>Si tenemos un paquete ya instalado en la modalidad de desarrollo y nos damos cuenta que realmente queremos tenerlo en la modalidad de producción (o viceversa), no es necesario desinstalar y volver a instalar el paquete.</p>
+<p>Simplemente, escribimos el comando de instalación de la modalidad a la que queremos pasar:</p>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> --save-prod howler</code></pre>
+<p>Internamente, npm se encargará de modificar el package.json y cambiar el paquete ya instalado de la sección devDependences a dependences.</p>
+<h2>Instalar versiones específicas</h2>
+<p>Si en algún momento necesitamos instalar una versión específica de un paquete, podemos hacerlo indicando la versión tras el nombre del paquete, separándola mediante el carácter @:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Muestra las versiones disponibles del paquete @vue/cli</span><br>$ <span class="token function">npm</span> show @vue/cli versions<br><span class="token punctuation">..</span>.<br>  <span class="token string">'4.4.0'</span>,          <span class="token string">'4.4.1'</span>,          <span class="token string">'4.4.2'</span>,          <span class="token string">'4.4.3'</span>,<br>  <span class="token string">'4.4.4'</span>,          <span class="token string">'4.4.5'</span>,          <span class="token string">'4.4.6'</span>,          <span class="token string">'4.5.0'</span><br><span class="token punctuation">]</span><br><br><span class="token comment"># Instala la versión 4.4.6 de @vue/cli</span><br>$ <span class="token function">npm</span> <span class="token function">install</span> -D @vue/cli@4.4.6</code></pre>
+<p>Esto puede ser interesante en algunas situaciones cuando nos encontramos que actualizar a la última versión de un paquete, nuestro proyecto deja de funcionar, o porque no queremos tener instalada la última versión de una librería.</p>
+<p>Nota: Quizás el nombre del paquete @vue/cli te pueda parecer extraño. Se trata de una buena práctica el utilizar el formato @namespace/paquete para nombrar paquetes. La palabra namespace se usa para el nombre del autor/producto/compañía y paquete para el nombre del proyecto.</p>
+<h2>Desinstalar paquetes</h2>
+<p>Si queremos desinstalar un paquete de nuestro proyecto, simplemente escribimos el siguiente comando en la terminal de texto:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> uninstall howler</code></pre>
+<p>Esto se encargará de eliminar el paquete de node_modules/ y eliminar su asociación al proyecto en el package.json, independientemente de ser una dependencia de desarrollo o de producción.</p>
+
+
+<p> publicado en Sat Jul 23 2022</p>
+<a class='btn btn-dark' href= '/'>Volver</a>
+ 
+        </article>
+        </div>
+        <footer>
+ <p> &copy;2022 José Antonio Cano </p>
+        </footer>
+    </div>
+    
+</body>
+</html>

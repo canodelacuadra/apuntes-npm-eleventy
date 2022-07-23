@@ -13,8 +13,9 @@
     <div class="container">
        
         <header>
-            <img width='150' src='/blog/img/eleventy.jpg'>
-           
+          
+           <a href="{{'/'|url}}"> <img width='150' src="{{'/img/eleventy.jpg'|url}}"></a>
+            <h1> Página de documentación </h1>
         </header>
          <div class='sidebar'>
  {{ collections.all | eleventyNavigation | eleventyNavigationToHtml | safe }}

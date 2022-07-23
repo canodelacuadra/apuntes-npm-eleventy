@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package json</title>
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link rel="stylesheet" href="/eleventy/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+       
+        <header>
+          
+           <a href="/eleventy/"> <img width='150' src="/eleventy/img/eleventy.jpg"></a>
+            <h1> Página de documentación </h1>
+        </header>
+         <div class='sidebar'>
+ <ul><li><a href="/eleventy/pages/npm/">npm</a><ul><li><a href="/eleventy/pages/instalar-npm/">instalar-npm</a></li>
+<li><a href="/eleventy/pages/crear-proyecto-npm/">crear-proyecto-npm</a></li>
+<li><a href="/eleventy/pages/instalar-paquetes/">instalar-desinstalar-npm</a></li>
+<li><a href="/eleventy/pages/package-json/">package-json</a></li>
+<li><a href="/eleventy/pages/control-dependencias/">control-dependencias</a></li>
+<li><a href="/eleventy/pages/scripts-npm/">scripts-npm</a></li>
+<li><a href="/eleventy/pages/node-modules/">node-modules</a></li></ul></li></ul>
+         </div>
+            <div class='content'>
+        <h1>Package json</h1>
+        <article>
+<p>Al crear un nuevo proyecto con npm init, se lanzará un asistente que tras algunas preguntas, crea un archivo llamado package.json en la carpeta raíz del proyecto, donde coloca toda la información que se conoce sobre el mismo. Este archivo es un simple fichero de texto, en formato JSON que incorpora a través de varios campos información muy variada.</p>
+<p>Este fichero tiene una estructura definida muy concreta, y a través de sus campos se puede guardar y recuperar información muy útil.</p>
+<p>Campos del package.json
+Si creamos un nuevo proyecto con los valores por defecto (omitiendo el asistente) con el comando npm init -y, se generará el siguiente archivo package.json, el cuál podemos abrir con nuestro editor de texto preferido para modificarlo:</p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"frontend-project"</span><span class="token punctuation">,</span><br>  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span><br>  <span class="token property">"main"</span><span class="token operator">:</span> <span class="token string">"index.js"</span><span class="token punctuation">,</span><br>  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"keywords"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>  <span class="token property">"author"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span><br>  <span class="token property">"license"</span><span class="token operator">:</span> <span class="token string">"ISC"</span><br><span class="token punctuation">}</span></code></pre>
+<p>Por defecto, obtendrá el nombre de la carpeta del proyecto (recuerda que es importante utilizar minúsculas y guiones en lugar de espacio) y nos colocará la versión 1.0.0 por defecto.</p>
+<p>Recuerda que el campo name no debe empezar por punto, guión bajo ni debe tener el mismo nombre que otro paquete que uses como dependencia. Una buena recomendación es que se utilice un prefijo/scope como namespace, del tipo @author/nombre-paquete.</p>
+<p>Veamos algunos de los campos más habituales de package.json que debemos conocer:</p>
+<ul>
+<li>name	Nombre del proyecto, librería o paquete. Se recomienda que coincida con el repositorio.</li>
+<li>version	Versión del paquete. Generalmente se utiliza semver (lo veremos más adelante).</li>
+<li>description	Descripción breve del paquete o proyecto.</li>
+<li>main	Punto de entrada del proyecto. Suele ser index.js (node) o index.html (browser).</li>
+<li>module	Idem al anterior, pero respecto a ES Modules en lugar de CommonJS.
+scripts	Colección de scripts del proyecto (lo veremos más adelante).
+keywords	 de  con palabras clave relacionadas con el proyecto. Util en búsquedas.
+author	Nombre del autor del paquete o un  con name, email y/o url.
+license	Tipo de licencia del paquete o proyecto. Por defecto, ISC.
+dependencies	Colección de paquetes para producción y la versión instalada.
+devDependencies	Colección de paquetes para desarrollo y la versión instalada.
+homepage	URL de la página principal del paquete.
+repository	URL del repositorio. Se debe indicar type (git, svn...) y url (ruta).
+bugs	Objeto con campo url con la URL de la página de issues del proyecto.
+Si nuestro paquete (o alguna dependencia) tiene definidos estos últimos 3 campos en su package.json podemos utilizar los siguientes comandos, incluso si no tenemos instalada la dependencia en nuestro proyecto:</li>
+</ul>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Accede a la homepage de documentación del paquete "howler"</span><br>$ <span class="token function">npm</span> docs howler<br>$ <span class="token function">npm</span> home howler<br><br><span class="token comment"># Accede al repositorio del paquete "howler"</span><br>$ <span class="token function">npm</span> repo howler<br><br><span class="token comment"># Accede a la página de issues del paquete "howler"</span><br>$ <span class="token function">npm</span> issues howler<br>$ <span class="token function">npm</span> bugs howler</code></pre>
+<h2>Dependencias del proyecto</h2>
+<p>En nuestro fichero package.json recién creado probablemente no existan los campos dependencies y devDependencies, pero si estamos ante un proyecto en el que ya han sido instalados paquetes, si existirán. El apartado dependencies contiene el nombre y versión de los paquetes de producción, mientras que el campo devDependencies contiene el nombre y versión de los paquetes de desarrollo:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Mostramos los paquetes de producción del package.json</span><br>$ <span class="token function">cat</span> package.json <span class="token operator">|</span> jq .dependencies<br><span class="token punctuation">{</span><br>  <span class="token string">"react"</span><span class="token builtin class-name">:</span> <span class="token string">"^16.13.1"</span>,<br>  <span class="token string">"howler"</span><span class="token builtin class-name">:</span> <span class="token string">"^2.2.0"</span><br><span class="token punctuation">}</span></code></pre>
+<p>Lo realmente interesante de estos campos es que funcionan a modo de índice o guía de paquetes necesarios para el proyecto, de modo que sólo con el fichero package.json en una carpeta vacía, podemos indicarle a npm que descargue todas las dependencias necesarias para el proyecto en la carpeta node_modules/ escribiendo lo siguiente:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Pedimos a NPM que descargue las dependencias necesarias en node_modules/</span><br>$ <span class="token function">npm</span> <span class="token function">install</span></code></pre>
+<p>Probablemente, este proceso tardará un rato, dependiendo del número de dependencias que sea necesario instalar, de su tamaño, de la conexión a Internet de la que dispongamos e incluso de si disponemos de un disco duro lento o un disco SSD rápido.</p>
+<p>Una vez instalados los paquetes, tendremos nuestro proyecto listo para realizar bare imports, es decir, importaciones sin ruta (solo con el nombre del paquete), que node buscará en la carpeta node_modules/:</p>
+<pre class="language-js"><code class="language-js"><span class="token comment">// Importamos la librería Howler de la carpeta node_modules/</span><br><span class="token keyword">import</span> <span class="token punctuation">{</span> Howler<span class="token punctuation">,</span> Howl <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"howler"</span><span class="token punctuation">;</span><br><br><span class="token keyword">const</span> audio <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Howl</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>  <span class="token literal-property property">src</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"/assets/audio.mp3"</span><span class="token punctuation">]</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Nota: Si quieres más información sobre las importaciones nativas de Javascript, echa un vistazo a las sentencias import y export en el artículo Módulos ECMAScript.</p>
+<h2>El archivo package-lock.json</h2>
+<p>El archivo package-lock.json es un archivo generado automáticamente cuando se instalan paquetes o dependencias en el proyecto. Su finalidad es mantener un historial de los paquetes instalados y optimizar la forma en que se generan las dependencias del proyecto y los contenidos de la carpeta node_modules/.</p>
+<p>Este archivo debe conservarse e incluso versionarse para añadirlo al repositorio de control de versiones, puesto que es algo favorable para el trabajo con npm. Es por ello que no debe añadirse al fichero .gitignore.</p>
+
+
+<p> publicado en Sat Jul 23 2022</p>
+<a class='btn btn-dark' href= '/'>Volver</a>
+ 
+        </article>
+        </div>
+        <footer>
+ <p> &copy;2022 José Antonio Cano </p>
+        </footer>
+    </div>
+    
+</body>
+</html>

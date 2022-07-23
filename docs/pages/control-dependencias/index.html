@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de dependencias</title>
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link rel="stylesheet" href="/eleventy/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+       
+        <header>
+          
+           <a href="/eleventy/"> <img width='150' src="/eleventy/img/eleventy.jpg"></a>
+            <h1> Página de documentación </h1>
+        </header>
+         <div class='sidebar'>
+ <ul><li><a href="/eleventy/pages/npm/">npm</a><ul><li><a href="/eleventy/pages/instalar-npm/">instalar-npm</a></li>
+<li><a href="/eleventy/pages/crear-proyecto-npm/">crear-proyecto-npm</a></li>
+<li><a href="/eleventy/pages/instalar-paquetes/">instalar-desinstalar-npm</a></li>
+<li><a href="/eleventy/pages/package-json/">package-json</a></li>
+<li><a href="/eleventy/pages/control-dependencias/">control-dependencias</a></li>
+<li><a href="/eleventy/pages/scripts-npm/">scripts-npm</a></li>
+<li><a href="/eleventy/pages/node-modules/">node-modules</a></li></ul></li></ul>
+         </div>
+            <div class='content'>
+        <h1>Control de dependencias</h1>
+        <article>
+<p>Las dependencias crecen, se actualizan y evolucionan, añadiendo nuevas funcionalidades, corrigiendo problemas, y quizás hasta puede que perdiendo funcionalidades por el camino.</p>
+<p>Es por todos estos factores por lo que conviene y es importante aprender una serie de buenas prácticas para mantener nuestro proyecto en buen estado, y que mencionaremos a lo largo de este artículo.</p>
+<h2>Versionado semántico</h2>
+<p>La forma más habitual de versionar nuestros paquetes es usando versionado semántico, muy frecuentemente abreviado como semver. Este tipo de versionado se basa en unas pautas concretas en el número de versión de los paquetes o proyectos. Dado un número de versión de un proyecto, este número está formado por 3 partes, por ejemplo: a.b.c:</p>
+<p>Tomemos por ejemplo que la  versión es 2.0.4:</p>
+<ul>
+<li>
+<p>2 es el major version. Se trata del número de versión mayor y se avanza uno más si las novedades del paquete, librería o proyecto van a producir cambios importantes (breaking changes) que no son compatibles con versiones anteriores. Si avanzaramos, pasaríamos a 3.0.0. Si tu paquete no está siendo usado en producción, puedes empezar con la versión 0.1.0 en lugar de la 1.0.0.</p>
+</li>
+<li>
+<p>0 es el minor version. Se trata del número de versión menor y se avanza uno más si las novedades del paquete, librería o proyecto introducen nuevas funcionalidades que son compatibles con versiones anteriores. Si avanzaramos, pasaríamos a 2.1.0.</p>
+</li>
+<li>
+<p>4 es el patch version. Se trata del número utilizado para parches que corrigen problemas, bugs o defectos en funcionalidades del código actual y son compatibles con versiones anteriores. Si avanzaramos, pasaríamos a 2.0.5.</p>
+</li>
+</ul>
+<p>Por lo tanto, sabiendo estas características, observando el número de versión actual 2.0.4 y suponiendo que partimos de una primera versión 1.0.0, sabemos que desde el lanzamiento de la v2 ha tenido 5 parches para corregir errores o problemas.</p>
+<p>Si quieres obtener más información sobre versionado semántico, puedes consultar la página oficial semver.org, donde tienen algunas recomendaciones.</p>
+<h2>Dependencias del proyecto y Control de dependencias</h2>
+<p>La lista de dependencias del proyecto se guardan en el package.json, en un apartado dependencies y en otro devDependencies, dependiendo si son paquetes de producción o de desarrollo respectivamente. Si</p>
+<p>En la última forma mencionada, habrás observado que el número de versión de cada paquete, en algunas ocasiones viene precedido por un carácter especial, como ^ (circunflejo) o ~ (tilde). La ausencia o presencia de estos carácteres, junto a otros detalles, indica a npm como debe controlar el proceso de actualizaciones.</p>
+<p>Para entenderlo mejor, imagina el siguiente supuesto (no es real al 100%, luego explicaré por qué):</p>
+<p>Hoy, creamos un proyecto en el que instalaremos dos dependencias: A y B.
+Al instalarlas con npm install <paquete> se instala la última versión disponible.
+En el caso de A, se instala la versión 1.0.3. En el caso de B, la 1.4.0.
+Todo funciona correctamente. Guardamos en GitHub y borramos el repo del equipo.
+Retomamos el proyecto 3 meses después. Clonamos y hacemos un npm install.</p>
+<p>Se instala la última versión disponible de cada dependencia.
+En el caso de A, la última versión es 1.0.15. En el caso de B, la 2.2.1.
+La dependencia A sigue funcionando correctamente, ya que sólo han habido parches.
+La dependencia B falla, ya que el proyecto fue diseñado para la 1.4.0, y la versión 2.2.1 introduce cambios grandes que no son compatibles.
+Sin haber cambiado ni una línea de código, nuestro proyecto está fallando, y esto ocurre porque los cambios externos a nuestro código también influyen en nuestro proyecto. Cada vez que añadimos una dependencia a nuestro proyecto, como su propio nombre indica, dependemos también de esa librería, código o sistema.</p>
+<p>IMPORTANTE: Para evitar situaciones como estas, npm incluye un ^ (circunflejo) antes del número de versión de la dependencia. De esta forma, sabemos que versión se instaló por primera vez, pero npm buscará la versión más alta disponible, teniendo en cuenta sólo parches y actualizaciones menores, pero nunca instalando actualizaciones mayores.</p>
+<h2>Política de actualizaciones</h2>
+<p>Si echamos un vistazo a las versiones de las dependencias de nuestro proyecto, veremos que tienen uno de los siguientes formatos:</p>
+<p>Versión	Descripción</p>
+<ul>
+<li>1.2.4	Instala siempre la versión indicada 1.2.4.</li>
+<li>^1.2.4	Instalará la versión menor más alta, sin llegar a pasar a la versión 2.x ni superiores. Por defecto.</li>
+<li>~1.2.4	Instalará sólo los parches, sin llegar a pasar a la versión 1.3 ni superiores.
+También es posible utilizar el carácter x o * para indicar comodines en la versión. Por ejemplo, la versión 1.2.x sería equivalente a ^1.2.0, la versión 1.x sería equivalente a ^1.0 y la versión * o x sería equivalente a cualquier versión. Puedes utilizar la «calculadora» de semver.npmjs.com para hacer pruebas y comprender el funcionamiento del versionado semántico.</li>
+</ul>
+<p>Podemos controlar la versión que se instalará y la política de actualizaciones dependiendo de como instalemos los paquetes:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Busca e instala la última versión disponible (usará ^2.3.1)</span><br><span class="token comment"># (sólo permitirá actualización de versiones menores y parches)</span><br>$ <span class="token function">npm</span> <span class="token function">install</span> lit-element<br><br><span class="token comment"># Instala la versión exacta 2.3.1</span><br><span class="token comment"># (no permitirá actualizaciones a otras versiones)</span><br>$ <span class="token function">npm</span> <span class="token function">install</span> lit-element@2.3.1</code></pre>
+<p>Recuerda que siempre puedes editar manualmente el package.json y cambiar el caracter de versión si así lo deseas.</p>
+<h2>Actualización de dependencias</h2>
+<p>NPM tiene un sistema de actualización de dependencias integrado. Puedes activarlo ejecutando npm outdated, lo que mostraría algo parecido a lo siguiente:</p>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">npm</span> outdated<br>Package      Current  Wanted  Latest  Location<br>gh-pages       <span class="token number">0.4</span>.0   <span class="token number">0.4</span>.0   <span class="token number">3.1</span>.0  frontend-project<br>lit-element    <span class="token number">2.0</span>.1   <span class="token number">2.3</span>.1   <span class="token number">2.3</span>.1  frontend-project</code></pre>
+<p>Este menú nos mostrará las dependencias que tienen actualizaciones. En la columna current la versión instalada en el proyecto, en la columna wanted la versión máxima determinada por nuestro versionado semántico del package.json y en latest la última versión disponible de la dependencia. Además, los colores (aunque bajo mi opinión, no muy adecuados) son importantes:</p>
+<p>En rojo se nos mostrarán los paquetes que encajan con nuestra política de actualizaciones semver y podemos actualizar.
+En amarillo se nos mostrarán los paquetes que no encajan con nuestra política de actualizaciones.
+Sin embargo, existe un paquete no oficial llamado npm-check que mejora considerablemente el sistema de actualización de dependencias de NPM, con un sistema interactivo, mucha información bien desglosada y algunos parámetros interesantes:</p>
+<ul>
+<li>-u	Abre el menú interactivo de actualización. SPACE seleccionas paquetes y ENTER actualiza selección.</li>
+<li>-y	No abre menú interactivo, sino que actualiza todo sin preguntar.</li>
+<li>-p	No actualiza las dependencias de desarrollo, sólo las de producción.</li>
+<li>-d	No actualiza las dependencias de producción, sólo las de desarrollo.</li>
+<li>-g	Actualiza los paquetes globales del sistema, no los del proyecto.</li>
+</ul>
+<p>Así pues, para actualizar las dependencias de nuestro proyecto, tras instalarlo de forma global con npm install -g npm-check, podemos ejecutarlo en modo interactivo con un simple npm-check -u:</p>
+<pre><code>npm-check: Actualizador de dependencias de NPM
+</code></pre>
+<p>Observa que npm-check separa las actualizaciones en grupos de parches, versiones menores y versiones mayores, mostrando el número de versión actual y a actualizar, el texto devDep si es una dependencia de desarrollo, e incluso un enlace clickeable al README o la página de la dependencia para revisar los cambios.</p>
+
+
+<p> publicado en Sat Jul 23 2022</p>
+<a class='btn btn-dark' href= '/'>Volver</a>
+ 
+        </article>
+        </div>
+        <footer>
+ <p> &copy;2022 José Antonio Cano </p>
+        </footer>
+    </div>
+    
+</body>
+</html>

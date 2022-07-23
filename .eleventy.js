@@ -13,6 +13,6 @@ module.exports = function (eleventyConfig) {
       input: "src",
       output: "docs",
     },
-    pathPrefix: "/blog/",
+    pathPrefix: "/eleventy/",
   };
 };

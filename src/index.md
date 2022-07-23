@@ -1,6 +1,8 @@
 ---
-title: Introducción a la ciberseguridad
+title: Documentación 
 layout: base.njk
 ---
-## Blog con eleventy
-Hemos creado 16 páginas tutoriales para que aprendas los fundamentos de la Seguridad Cibernética:
+## Página de documentación con eleventy
+Hemos creado esta página para usar eleventy con vistas a publicar documentación.
+
+
