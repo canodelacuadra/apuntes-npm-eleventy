@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicación entre redes</title>
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+       
+        <header>
+            <img width='150' src='/img/eleventy.jpg'>
+           
+        </header>
+         <div class='sidebar'>
+ <ul><li><a href="/pages/respuesta-incididentes/">incidentes-seguridad</a></li>
+<li><a href="/pages/page_two/">operaciones-seguridad</a></li>
+<li><a href="/pages/dark-web/">Dark Web</a></li>
+<li><a href="/pages/ciberdelito/">ciberdelito</a></li>
+<li><a href="/pages/comunicacion-redes/">comunicacion-entre-redes</a></li>
+<li><a href="/pages/capa-red/">capa-red</a><ul><li><a href="/pages/amenazas-monetarias/">amenazas</a></li></ul></li></ul>
+         </div>
+            <div class='content'>
+        <h1>Comunicación entre redes</h1>
+        <article>
+<h2>Protocolos y Redes</h2>
+<p>Es esencial que los profesionales de la seguridad cibernética tengan una comprensión sólida de cómo se comunican las computadoras. Hay muchas más cosas detrás de escena de las redes informáticas que las que se pueden observar cuando se usan aplicaciones.</p>
+<h2>El modelo OSI</h2>
+<p>El modelo OSI (&quot;Interconexión de sistemas abiertos&quot;) representa una forma fácil e intuitiva de estandarizar las diferentes partes necesarias para comunicarse a través de redes.</p>
+<p>El modelo aclara lo que se requiere para comunicarse en una red al dividir los requisitos en varias capas.</p>
+<p>Así es como se ve el modelo OSI:</p>
+<ol start="7">
+<li>Solicitud	Donde los humanos procesan datos e información</li>
+<li>Presentación	Garantiza que los datos estén en un formato utilizable</li>
+<li>Sesión	Capaz de mantener conexiones</li>
+<li>Transporte	Los datos se reenvían a un servicio capaz de manejar solicitudes</li>
+<li>Capa de red	Responsable de qué ruta deben viajar los paquetes en una red</li>
+<li>Enlace de datos	Responsable de a qué dispositivos físicos deben ir los paquetes</li>
+<li>Físico	La infraestructura física para transportar datos</li>
+</ol>
+<p>Las 3 capas superiores generalmente se implementan en software dentro del sistema operativo:</p>
+<ol start="7">
+<li>Solicitud	Software</li>
+<li>Presentación	Software</li>
+<li>Sesión	Software</li>
+</ol>
+<p>Las 3 capas inferiores normalmente se implementan en el hardware dentro de los dispositivos de la red, por ejemplo, conmutadores, enrutadores y cortafuegos:</p>
+<ol start="3">
+<li>Capa de red	Hardware</li>
+<li>Enlace de datos	Hardware</li>
+<li>Físico	Hardware</li>
+</ol>
+<p>La capa 4, la capa de transporte, conecta el software con las capas de hardware.</p>
+<p>SDN (&quot;Software Defined Networking&quot;) es una tecnología que permite implementar más capas del hardware a través del software.</p>
+<h2>Capa 7 - Capa de aplicación</h2>
+<p>La lógica del negocio y la funcionalidad de la aplicación se encuentran aquí. Esto es lo que usan los usuarios para interactuar con los servicios a través de una red. La mayoría de los desarrolladores crean aplicaciones en la capa de aplicación.</p>
+<p>La mayoría de las aplicaciones que usa están en la capa de aplicación, con la complejidad de las otras capas ocultas.</p>
+<p>Ejemplos de aplicaciones de capa 7:</p>
+<ul>
+<li>HTTP (&quot;Protocolo de transferencia de hipertexto&quot;): nos permite acceder a aplicaciones web</li>
+<li>FTP (&quot;Protocolo de transferencia de archivos&quot;): permite a los usuarios transferir archivos</li>
+<li>SNMP (&quot;Protocolo simple de administración de red&quot;): protocolo para leer y actualizar configuraciones de dispositivos de red</li>
+</ul>
+<p>Hay muchas aplicaciones que usan estos protocolos como Google Chrome, Microsoft Skype y FileZilla.</p>
+<blockquote>
+<p>¡Está accediendo a esta clase a través de la Capa 7!</p>
+</blockquote>
+<h2>Capa 6 - Capa de presentación</h2>
+<p>Normalmente es una capa invisible, pero es responsable de adaptar, transformar y traducir datos. Esto es para garantizar que la aplicación y las capas inferiores puedan entenderse entre sí.</p>
+<ul>
+<li>Esquemas de codificación utilizados para representar texto y datos, por ejemplo, ASCII (Código estándar estadounidense para el intercambio de información) y UTF (Formato de transformación Unicode).</li>
+<li>Cifrado para servicios, por ejemplo SSL (&quot;Secure Sockets Layer&quot;) y TLS (&quot;Transport Security Layer&quot;)</li>
+<li>Compresión, por ejemplo, GZip en uso en muchas implementaciones de HTTP.</li>
+</ul>
+<h2>Capa 5 - Capa de sesión</h2>
+<p>La responsabilidad de esta capa es manejar las conexiones entre la aplicación y las capas inferiores. Implica establecer, mantener y finalizar conexiones, también denominadas sesiones.</p>
+<p>Los protocolos comunes que representan bien la capa de sesión son:</p>
+<ul>
+<li>SOCKS: un protocolo para enviar paquetes a través de un servidor proxy.</li>
+<li>NetBIOS: un protocolo antiguo de Windows para establecer sesiones y resolver nombres.</li>
+<li>SIP (&quot;Protocolo de inicio de sesión&quot;): para participar en comunicaciones VOIP (&quot;Voice Over IP&quot;)</li>
+</ul>
+<h2>Capa 4 - Transporte</h2>
+<p>La capa que permite representar las aplicaciones en la red.</p>
+<p>Algunas aplicaciones bien conocidas en esta capa:</p>
+<ul>
+<li>TCP (&quot;Protocolo de control de transmisión&quot;): se utiliza para muchas aplicaciones, lo que garantiza la estabilidad, el control de la cantidad de datos que se pueden enviar en un momento dado, la confiabilidad y más.</li>
+<li>UDP (&quot;Protocolo de datagramas de usuario&quot;): uso de protocolo ligero y rápido para muchos servicios.</li>
+<li>QUIC (&quot;Conexiones de Internet UDP rápidas&quot;): un protocolo diseñado para conexiones más rápidas y va de la mano con la versión 2 del protocolo HTTP.</li>
+</ul>
+<h2>Capa 3 - Red</h2>
+<p>Una capa responsable de enrutar paquetes entre redes a través de enrutadores.</p>
+<p>En esta capa residen los siguientes protocolos:</p>
+<ul>
+<li>IP (&quot;Protocolo de Internet&quot;): se utiliza todos los días al acceder a Internet. Viene en dos versiones, IP versión 4 y 6.</li>
+<li>ICMP (&quot;Protocolo de mensajes de control de Internet&quot;): utilizado por dispositivos de red y operadores de red, para diagnosticar conexiones de red o para que los dispositivos envíen y respondan a condiciones de error y más.</li>
+<li>IPSec (&quot;Protocolo de seguridad de Internet&quot;): permite conexiones cifradas y seguras entre dos dispositivos de red.</li>
+</ul>
+<h2>Capa 2 - Enlace</h2>
+<p>Las redes de enlace, como su nombre lo indica, consisten en protocolos diseñados para enviar paquetes a través de los enlaces reales (conexiones físicas) a los que están conectados los nodos de la red. Una forma más sencilla de pensarlo es que la capa de enlace es responsable de mover los datos de lo físico a lo lógico (a la capa de red).</p>
+<p>Los protocolos en esta capa incluyen:</p>
+<ul>
+<li>Ethernet: un protocolo esencial utilizado por la mayoría de los sistemas operativos cuando se conectan a redes mediante un cable físico.</li>
+<li>Wi-Fi (&quot;Fidelidad inalámbrica&quot;): para acceder a redes a través de señales de radio. Utiliza una familia de protocolos llamada IEEE 802.11.xx
+NDP (&quot;Protocolo de descubrimiento de vecinos&quot;): IP versión 6 (IPv6) utiliza este protocolo en la capa de enlace para recopilar la información necesaria para comunicarse a través de IPv6</li>
+</ul>
+<h2>Capa 1 - Física</h2>
+<p>La capa física representa la señalización que permite la transferencia de bits y bytes entre un medio físico. Puede transmitirse por radio o señales a través de un cable, utilizando señales eléctricas o luz, por ejemplo, fibra.</p>
+<p>Los ejemplos de los protocolos de capa física incluyen:</p>
+<ul>
+<li>Bus CAN (&quot;Red de área del controlador&quot;): se utiliza en microcontroladores y otros dispositivos para comunicarse con otros dispositivos similares, sin involucrar una computadora. A menudo se usa en ICS (&quot;Sistemas de control industrial&quot;).</li>
+<li>Capa física de Ethernet: utilizada por Ethernet en la capa física para enviar señales con velocidades de hasta muchos gigabits de tráfico por segundo.</li>
+<li>Capa física de Bluetooth: Bluetooth también tiene sus propias especificaciones sobre cómo se deben enviar y recibir las señales de radio.</li>
+</ul>
+
+
+<p> publicado en Thu Jul 21 2022</p>
+<a class='btn btn-dark' href= '/'>Volver</a>
+ 
+        </article>
+        </div>
+        <footer>
+ <p> &copy;2022 José Antonio Cano </p>
+        </footer>
+    </div>
+    
+</body>
+</html>
