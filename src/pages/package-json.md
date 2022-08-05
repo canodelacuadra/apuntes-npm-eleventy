@@ -6,11 +6,11 @@ title: Package json
 
 ordre: 4
 ---
-Al crear un nuevo proyecto con npm init, se lanzará un asistente que tras algunas preguntas, crea un archivo llamado package.json en la carpeta raíz del proyecto, donde coloca toda la información que se conoce sobre el mismo. Este archivo es un simple fichero de texto, en formato JSON que incorpora a través de varios campos información muy variada.
+Al crear un nuevo proyecto con npm init, se lanzará un asistente que tras algunas preguntas, crea un archivo llamado package.json en la carpeta raíz del proyecto, donde coloca toda la información que se conoce sobre el mismo. Este archivo es un simple fichero de texto, en formato JSON que incorpora a través de varios campos, información muy variada.
 
 Este fichero tiene una estructura definida muy concreta, y a través de sus campos se puede guardar y recuperar información muy útil.
 
-Campos del package.json 
+## Campos del package.json 
 Si creamos un nuevo proyecto con los valores por defecto (omitiendo el asistente) con el comando npm init -y, se generará el siguiente archivo package.json, el cuál podemos abrir con nuestro editor de texto preferido para modificarlo:
 ````json
 {
@@ -31,21 +31,19 @@ Por defecto, obtendrá el nombre de la carpeta del proyecto (recuerda que es imp
 Recuerda que el campo name no debe empezar por punto, guión bajo ni debe tener el mismo nombre que otro paquete que uses como dependencia. Una buena recomendación es que se utilice un prefijo/scope como namespace, del tipo @author/nombre-paquete.
 
 Veamos algunos de los campos más habituales de package.json que debemos conocer:
-
-
 - name	Nombre del proyecto, librería o paquete. Se recomienda que coincida con el repositorio.
 - version	Versión del paquete. Generalmente se utiliza semver (lo veremos más adelante).
 - description	Descripción breve del paquete o proyecto.
 - main	Punto de entrada del proyecto. Suele ser index.js (node) o index.html (browser).
 - module	Idem al anterior, pero respecto a ES Modules en lugar de CommonJS.
-scripts	Colección de scripts del proyecto (lo veremos más adelante).
-keywords	 de  con palabras clave relacionadas con el proyecto. Util en búsquedas.
-author	Nombre del autor del paquete o un  con name, email y/o url.
-license	Tipo de licencia del paquete o proyecto. Por defecto, ISC.
-dependencies	Colección de paquetes para producción y la versión instalada.
-devDependencies	Colección de paquetes para desarrollo y la versión instalada.
-homepage	URL de la página principal del paquete.
-repository	URL del repositorio. Se debe indicar type (git, svn...) y url (ruta).
+- scripts	Colección de scripts del proyecto .
+- keywords	 de  con palabras clave relacionadas con el proyecto. Util en búsquedas.
+- author	Nombre del autor del paquete o un  con name, email y/o url.
+- license	Tipo de licencia del paquete o proyecto. Por defecto, ISC.
+- dependencies	Colección de paquetes para producción y la versión instalada.
+- devDependencies	Colección de paquetes para desarrollo y la versión instalada.
+- homepage	URL de la página principal del paquete.
+- repository	URL del repositorio. Se debe indicar type (git, svn...) y url (ruta).
 bugs	Objeto con campo url con la URL de la página de issues del proyecto.
 Si nuestro paquete (o alguna dependencia) tiene definidos estos últimos 3 campos en su package.json podemos utilizar los siguientes comandos, incluso si no tenemos instalada la dependencia en nuestro proyecto:
 ````bash

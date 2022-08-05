@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Package json</title>
     <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
-    <link rel="stylesheet" href="/eleventy/css/style.css">
+    <link rel="stylesheet" href="/apuntes-npm-eleventy/css/style.css">
 </head>
 <body>
 
@@ -14,25 +14,25 @@
        
         <header>
           
-           <a href="/eleventy/"> <img width='150' src="/eleventy/img/eleventy.jpg"></a>
+           <a href="/apuntes-npm-eleventy/"> <img width='150' src="/apuntes-npm-eleventy/img/eleventy.jpg"></a>
             <h1> Página de documentación </h1>
         </header>
          <div class='sidebar'>
- <ul><li><a href="/eleventy/pages/npm/">npm</a><ul><li><a href="/eleventy/pages/instalar-npm/">instalar-npm</a></li>
-<li><a href="/eleventy/pages/crear-proyecto-npm/">crear-proyecto-npm</a></li>
-<li><a href="/eleventy/pages/instalar-paquetes/">instalar-desinstalar-npm</a></li>
-<li><a href="/eleventy/pages/package-json/">package-json</a></li>
-<li><a href="/eleventy/pages/control-dependencias/">control-dependencias</a></li>
-<li><a href="/eleventy/pages/scripts-npm/">scripts-npm</a></li>
-<li><a href="/eleventy/pages/node-modules/">node-modules</a></li></ul></li></ul>
+ <ul><li><a href="/apuntes-npm-eleventy/pages/npm/">npm</a><ul><li><a href="/apuntes-npm-eleventy/pages/control-dependencias/">control-dependencias</a></li>
+<li><a href="/apuntes-npm-eleventy/pages/crear-proyecto-npm/">crear-proyecto-npm</a></li>
+<li><a href="/apuntes-npm-eleventy/pages/instalar-npm/">instalar-npm</a></li>
+<li><a href="/apuntes-npm-eleventy/pages/instalar-paquetes/">instalar-desinstalar-npm</a></li>
+<li><a href="/apuntes-npm-eleventy/pages/node-modules/">node-modules</a></li>
+<li><a href="/apuntes-npm-eleventy/pages/package-json/">package-json</a></li>
+<li><a href="/apuntes-npm-eleventy/pages/scripts-npm/">scripts-npm</a></li></ul></li></ul>
          </div>
             <div class='content'>
         <h1>Package json</h1>
         <article>
-<p>Al crear un nuevo proyecto con npm init, se lanzará un asistente que tras algunas preguntas, crea un archivo llamado package.json en la carpeta raíz del proyecto, donde coloca toda la información que se conoce sobre el mismo. Este archivo es un simple fichero de texto, en formato JSON que incorpora a través de varios campos información muy variada.</p>
+<p>Al crear un nuevo proyecto con npm init, se lanzará un asistente que tras algunas preguntas, crea un archivo llamado package.json en la carpeta raíz del proyecto, donde coloca toda la información que se conoce sobre el mismo. Este archivo es un simple fichero de texto, en formato JSON que incorpora a través de varios campos, información muy variada.</p>
 <p>Este fichero tiene una estructura definida muy concreta, y a través de sus campos se puede guardar y recuperar información muy útil.</p>
-<p>Campos del package.json
-Si creamos un nuevo proyecto con los valores por defecto (omitiendo el asistente) con el comando npm init -y, se generará el siguiente archivo package.json, el cuál podemos abrir con nuestro editor de texto preferido para modificarlo:</p>
+<h2>Campos del package.json</h2>
+<p>Si creamos un nuevo proyecto con los valores por defecto (omitiendo el asistente) con el comando npm init -y, se generará el siguiente archivo package.json, el cuál podemos abrir con nuestro editor de texto preferido para modificarlo:</p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"frontend-project"</span><span class="token punctuation">,</span><br>  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span><br>  <span class="token property">"main"</span><span class="token operator">:</span> <span class="token string">"index.js"</span><span class="token punctuation">,</span><br>  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"keywords"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>  <span class="token property">"author"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span><br>  <span class="token property">"license"</span><span class="token operator">:</span> <span class="token string">"ISC"</span><br><span class="token punctuation">}</span></code></pre>
 <p>Por defecto, obtendrá el nombre de la carpeta del proyecto (recuerda que es importante utilizar minúsculas y guiones en lugar de espacio) y nos colocará la versión 1.0.0 por defecto.</p>
 <p>Recuerda que el campo name no debe empezar por punto, guión bajo ni debe tener el mismo nombre que otro paquete que uses como dependencia. Una buena recomendación es que se utilice un prefijo/scope como namespace, del tipo @author/nombre-paquete.</p>
@@ -42,15 +42,15 @@ Si creamos un nuevo proyecto con los valores por defecto (omitiendo el asistente
 <li>version	Versión del paquete. Generalmente se utiliza semver (lo veremos más adelante).</li>
 <li>description	Descripción breve del paquete o proyecto.</li>
 <li>main	Punto de entrada del proyecto. Suele ser index.js (node) o index.html (browser).</li>
-<li>module	Idem al anterior, pero respecto a ES Modules en lugar de CommonJS.
-scripts	Colección de scripts del proyecto (lo veremos más adelante).
-keywords	 de  con palabras clave relacionadas con el proyecto. Util en búsquedas.
-author	Nombre del autor del paquete o un  con name, email y/o url.
-license	Tipo de licencia del paquete o proyecto. Por defecto, ISC.
-dependencies	Colección de paquetes para producción y la versión instalada.
-devDependencies	Colección de paquetes para desarrollo y la versión instalada.
-homepage	URL de la página principal del paquete.
-repository	URL del repositorio. Se debe indicar type (git, svn...) y url (ruta).
+<li>module	Idem al anterior, pero respecto a ES Modules en lugar de CommonJS.</li>
+<li>scripts	Colección de scripts del proyecto .</li>
+<li>keywords	 de  con palabras clave relacionadas con el proyecto. Util en búsquedas.</li>
+<li>author	Nombre del autor del paquete o un  con name, email y/o url.</li>
+<li>license	Tipo de licencia del paquete o proyecto. Por defecto, ISC.</li>
+<li>dependencies	Colección de paquetes para producción y la versión instalada.</li>
+<li>devDependencies	Colección de paquetes para desarrollo y la versión instalada.</li>
+<li>homepage	URL de la página principal del paquete.</li>
+<li>repository	URL del repositorio. Se debe indicar type (git, svn...) y url (ruta).
 bugs	Objeto con campo url con la URL de la página de issues del proyecto.
 Si nuestro paquete (o alguna dependencia) tiene definidos estos últimos 3 campos en su package.json podemos utilizar los siguientes comandos, incluso si no tenemos instalada la dependencia en nuestro proyecto:</li>
 </ul>
@@ -69,7 +69,7 @@ Si nuestro paquete (o alguna dependencia) tiene definidos estos últimos 3 campo
 <p>Este archivo debe conservarse e incluso versionarse para añadirlo al repositorio de control de versiones, puesto que es algo favorable para el trabajo con npm. Es por ello que no debe añadirse al fichero .gitignore.</p>
 
 
-<p> publicado en Sat Jul 23 2022</p>
+<p> publicado en Fri Aug 05 2022</p>
 <a class='btn btn-dark' href= '/'>Volver</a>
  
         </article>
